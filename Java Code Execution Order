@@ -1,0 +1,55 @@
+Java Code Execution Order
+  
+public class CodeExecutionExample {
+    static int staticVar = 1;   //1
+    int instanceVar = 2;       //2
+    
+    static {                   //1
+        System.out.println("Static block is executed first.");
+        staticVar = 10;
+    }
+    
+    {                        //2
+        System.out.println("Instance block is executed before constructor.");
+        instanceVar = 20;
+    }
+    
+    public CodeExecutionExample() {              //3
+        System.out.println("Constructor is executed after instance block.");
+    }
+    
+    public static void staticMethod() {            //4 (explicitly called)
+        System.out.println("Static method is executed without creating an instance.");
+        System.out.println("Static variable value: " + staticVar);
+    }
+    
+    public static void main(String[] args) {
+        CodeExecutionExample example = new CodeExecutionExample();
+        staticMethod();
+    }
+}
+
+1. Class Loading and Static Initialization: 
+- The class is loaded, and static variables and blocks are initialized. 
+- Output: ‘Static block is executed first.’
+
+2. Instance Initialization: 
+- An instance of ‘CodeExecutionExample’ is created.
+— Instance variables and blocks are initialized.
+— Output: `Instance block is executed before constructor.`
+  
+3. Constructor Execution
+— The constructor is called.
+— Output: ‘Constructor is executed after instance block.’
+
+4. Static Method Invocation: 
+- The ‘staticMethod()’ is called.
+— Output: ‘Static method is executed without creating an instance.’
+— Output: ‘Static variable value: 10’
+
+5. Main Method Execution
+
+Notes:
+>> Static methods can access static members directly.
+>> Static methods cannot access instance members directly. (Cuz no instance created yet)
+>> Instance methods can access both static and instance members.
