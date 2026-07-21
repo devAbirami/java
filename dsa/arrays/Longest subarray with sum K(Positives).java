@@ -1,4 +1,4 @@
-Using sliding window and 2 pointers
+// Using sliding window and 2 pointers
 
 class Solution {
   public int longestSubarray(int[] arr, int k) {
